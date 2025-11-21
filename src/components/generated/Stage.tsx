@@ -119,7 +119,7 @@ const INITIAL_INVOICE_ITEMS: InvoiceItem[] = [{
 // -- 3D Components (Simplified to prevent flickering) --
 
 const Room = () => {
-  const { scene } = useGLTF('/src/assets/glb/room.glb');
+  const { scene } = useGLTF('../../assets/glb/room.glb');
   
   // Enable shadows on all meshes
   scene.traverse((child: THREE.Object3D) => {
