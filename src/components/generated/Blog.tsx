@@ -99,7 +99,7 @@ const allBlogPosts: BlogPost[] = [{
 const POSTS_PER_PAGE = 6;
 
 // @component: BlogGrid
-export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
+export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(allBlogPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
@@ -127,7 +127,7 @@ export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact }: 
     });
   };
   return <div className="min-h-screen flex flex-col">
-      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} />
+      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} />
       
       <main className="flex-1 bg-white py-12 sm:py-16 w-full">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

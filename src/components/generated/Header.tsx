@@ -9,15 +9,15 @@ const NavLink = ({
     {children}
   </a>;
 export interface HeaderProps {
-  onLoginClick?: () => void;
-  onRegisterClick?: () => void;
+  onOpenLogin?: () => void;
+  onOpenRegister?: () => void;
   onNavigateHome?: () => void;
   onNavigateBlog?: () => void;
   onNavigateContact?: () => void;
 }
 export const Header: React.FC<HeaderProps> = ({
-  onLoginClick,
-  onRegisterClick,
+  onOpenLogin,
+  onOpenRegister,
   onNavigateHome,
   onNavigateBlog,
   onNavigateContact
@@ -34,10 +34,10 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         <div className="flex items-center gap-3">
-          <button onClick={onLoginClick} className="px-4 py-2 text-[15px] font-bold text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+          <button onClick={onOpenLogin} className="px-4 py-2 text-[15px] font-bold text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
             Login
           </button>
-          <button onClick={onRegisterClick} className="px-5 py-2 text-[15px] font-bold text-white bg-[#1DA1F2] hover:bg-[#1a8cd8] rounded-full transition-colors shadow-sm">
+          <button onClick={onOpenRegister} className="px-5 py-2 text-[15px] font-bold text-white bg-[#1DA1F2] hover:bg-[#1a8cd8] rounded-full transition-colors shadow-sm">
             Register
           </button>
         </div>

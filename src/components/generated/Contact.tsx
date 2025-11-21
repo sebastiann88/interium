@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Building2, Phone, Mail } from 'lucide-react';
-export const ContactPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
+export const ContactPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -33,7 +33,7 @@ export const ContactPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact 
     });
   };
   return <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} />
+      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} />
       
       <main className="flex-1 py-16 w-full">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

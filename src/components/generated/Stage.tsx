@@ -318,7 +318,7 @@ const Footer = () => {
 };
 
 // @component: Stage
-export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
+export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [treeData, setTreeData] = useState<TreeItem[]>(INITIAL_TREE_DATA);
   const [selectedRoom, setSelectedRoom] = useState<string>('Living Room');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);

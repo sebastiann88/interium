@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Play, Volume2, Maximize, User, MapPin, Mail, Twitter, Facebook, Linkedin, Instagram, ChevronRight } from 'lucide-react';
-import { LoginOverlay } from './LoginOverlay';
-import { RegisterOverlay } from './RegisterOverlay';
 
 // --- Icons & Assets ---
 
@@ -161,10 +159,8 @@ const PricingCard = ({
   </div>;
 
 // @component: Home
-export const Home = ({ onSignIn, onNavigateBlog, onNavigateContact }: { onSignIn?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
+export const Home = ({ onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [activeTab, setActiveTab] = useState('Canvas');
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   // Tab content data
   const tabContent = {
@@ -202,10 +198,10 @@ export const Home = ({ onSignIn, onNavigateBlog, onNavigateContact }: { onSignIn
           </nav>
 
           <div className="flex items-center gap-3">
-            <button onClick={() => setIsLoginOpen(true)} className="px-4 py-2 text-[15px] font-bold text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+            <button onClick={onOpenLogin} className="px-4 py-2 text-[15px] font-bold text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
               Login
             </button>
-            <button onClick={() => setIsRegisterOpen(true)} className="px-5 py-2 text-[15px] font-bold text-white bg-[#1DA1F2] hover:bg-[#1a8cd8] rounded-full transition-colors shadow-sm">
+            <button onClick={onOpenRegister} className="px-5 py-2 text-[15px] font-bold text-white bg-[#1DA1F2] hover:bg-[#1a8cd8] rounded-full transition-colors shadow-sm">
               Register
             </button>
           </div>
@@ -388,41 +384,5 @@ export const Home = ({ onSignIn, onNavigateBlog, onNavigateContact }: { onSignIn
 
         </div>
       </footer>
-
-      {/* Login Overlay */}
-      <LoginOverlay isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onGoogleSignIn={() => {
-      console.log('Google sign in clicked');
-      // Add your Google sign in logic here
-      setIsLoginOpen(false);
-      onSignIn?.();
-    }} onFacebookSignIn={() => {
-      console.log('Facebook sign in clicked');
-      // Add your Facebook sign in logic here
-      setIsLoginOpen(false);
-      onSignIn?.();
-    }} onEmailSignIn={(email, password) => {
-      console.log('Email sign in:', email, password);
-      // Add your email sign in logic here
-      setIsLoginOpen(false);
-      onSignIn?.();
-    }} />
-
-      {/* Register Overlay */}
-      <RegisterOverlay isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} onGoogleSignUp={() => {
-      console.log('Google sign up clicked');
-      // Add your Google sign up logic here
-    }} onFacebookSignUp={() => {
-      console.log('Facebook sign up clicked');
-      // Add your Facebook sign up logic here
-    }} onEmailSignUp={(email, password, firstName, lastName) => {
-      console.log('Email sign up:', {
-        email,
-        password,
-        firstName,
-        lastName
-      });
-      // Add your email sign up logic here
-      setIsRegisterOpen(false);
-    }} />
     </div>;
 };
