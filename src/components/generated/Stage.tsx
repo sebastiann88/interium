@@ -244,7 +244,7 @@ const SidebarItem = ({
         </div>}
     </div>;
 };
-const Footer = ({ onNavigateAbout }: { onNavigateAbout?: () => void }) => {
+const Footer = ({ onNavigateAbout, onNavigateTutorials }: { onNavigateAbout?: () => void; onNavigateTutorials?: () => void }) => {
   return <footer className="bg-white border-t border-gray-200 pt-8 pb-6 px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -275,7 +275,7 @@ const Footer = ({ onNavigateAbout }: { onNavigateAbout?: () => void }) => {
             <h3 className="text-base font-bold text-gray-900">Resources</h3>
             <div className="text-sm text-gray-600 space-y-2">
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Documentation</a>
-              <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Tutorials</a>
+              <button onClick={onNavigateTutorials} className="block hover:text-[#1DA1F2] transition-colors text-left">Tutorials</button>
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Support</a>
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Community</a>
             </div>
@@ -318,7 +318,7 @@ const Footer = ({ onNavigateAbout }: { onNavigateAbout?: () => void }) => {
 };
 
 // @component: Stage
-export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNavigateAbout, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onNavigateAbout?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
+export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNavigateAbout, onNavigateTutorials, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onNavigateAbout?: () => void; onNavigateTutorials?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [treeData, setTreeData] = useState<TreeItem[]>(INITIAL_TREE_DATA);
   const [selectedRoom, setSelectedRoom] = useState<string>('Living Room');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -608,7 +608,7 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNav
         <div className="flex items-center gap-8">
           <button onClick={onNavigateHome} className="text-2xl font-bold text-[#1DA1F2] hover:opacity-80 transition-opacity">Interium</button>
           <nav className="hidden md:flex items-center gap-6 text-[15px] font-medium">
-            <button onClick={onNavigateHome} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Home</button>
+            {/* <button onClick={onNavigateHome} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Home</button> */}
             <a href="#" className="text-gray-900 hover:text-[#1DA1F2] transition-colors py-2">Stage</a>
             <button onClick={onNavigateBlog} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Blog</button>
             <button onClick={onNavigateContact} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Contact</button>
@@ -778,7 +778,7 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNav
       </div>
 
       {/* Footer */}
-      <Footer onNavigateAbout={onNavigateAbout} />
+      <Footer onNavigateAbout={onNavigateAbout} onNavigateTutorials={onNavigateTutorials} />
 
       {/* Import 3D Model Overlay */}
       {isImportOverlayOpen && <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
