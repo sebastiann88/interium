@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 import { ChevronDown, ChevronRight, Plus, Search, Bell, Mail, User, MoreHorizontal, Box as BoxIcon, X, Upload, Settings, Camera, Lock, CreditCard, Moon, Sun, Globe, Save, LogOut, Trash2, Printer, Download, Twitter, Facebook, Instagram, Linkedin, GripVertical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -118,82 +118,10 @@ const INITIAL_INVOICE_ITEMS: InvoiceItem[] = [{
 // -- 3D Components (Simplified to prevent flickering) --
 
 const Room = () => {
-  return <group rotation={[0, -Math.PI / 4, 0]} position={[0, -1, 0]}>
-      {/* Floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[12, 12]} />
-        <meshStandardMaterial color="#e8e8e8" />
-      </mesh>
-
-      {/* Back Wall */}
-      <mesh position={[0, 2.5, -6]}>
-        <boxGeometry args={[12, 5, 0.1]} />
-        <meshStandardMaterial color="#f5f5f5" />
-      </mesh>
-
-      {/* Left Wall */}
-      <mesh position={[-6, 2.5, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <boxGeometry args={[12, 5, 0.1]} />
-        <meshStandardMaterial color="#fafafa" />
-      </mesh>
-
-      {/* Window (Back Wall) */}
-      <group position={[2.5, 2.5, -5.95]}>
-        <mesh>
-          <boxGeometry args={[3, 2.2, 0.05]} />
-          <meshStandardMaterial color="#a8d8ea" transparent opacity={0.3} />
-        </mesh>
-        {/* Window Frame */}
-        <mesh position={[0, 1.2, 0]}>
-          <boxGeometry args={[3.2, 0.1, 0.06]} />
-          <meshStandardMaterial color="#888" />
-        </mesh>
-        <mesh position={[0, -1.2, 0]}>
-          <boxGeometry args={[3.2, 0.1, 0.06]} />
-          <meshStandardMaterial color="#888" />
-        </mesh>
-        <mesh position={[-1.6, 0, 0]}>
-          <boxGeometry args={[0.1, 2.4, 0.06]} />
-          <meshStandardMaterial color="#888" />
-        </mesh>
-        <mesh position={[1.6, 0, 0]}>
-          <boxGeometry args={[0.1, 2.4, 0.06]} />
-          <meshStandardMaterial color="#888" />
-        </mesh>
-      </group>
-
-      {/* Door (Left Wall) */}
-      <group position={[-5.95, 1.4, 3]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh>
-          <boxGeometry args={[2, 2.6, 0.08]} />
-          <meshStandardMaterial color="#9e8a6f" />
-        </mesh>
-        {/* Door Handle */}
-        <mesh position={[0.7, 0, 0.1]}>
-          <cylinderGeometry args={[0.04, 0.04, 0.15, 8]} />
-          <meshStandardMaterial color="#666" metalness={0.8} roughness={0.3} />
-        </mesh>
-      </group>
-
-      {/* Corner markers for dimension reference */}
-      <mesh position={[5, 0.05, 5]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
-        <meshBasicMaterial color="#ff6b35" />
-      </mesh>
-      <mesh position={[-5, 0.05, 5]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
-        <meshBasicMaterial color="#ff6b35" />
-      </mesh>
-      <mesh position={[5, 0.05, -5]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
-        <meshBasicMaterial color="#ff6b35" />
-      </mesh>
-      <mesh position={[-5, 0.05, -5]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
-        <meshBasicMaterial color="#ff6b35" />
-      </mesh>
-    </group>;
+  const { scene } = useGLTF('/src/assets/glb/room.glb');
+  return <primitive object={scene} />;
 };
+
 const Scene = () => {
   return <>
       <ambientLight intensity={0.6} />
@@ -744,28 +672,13 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNav
 
           {/* 3D Viewport */}
           <div className="w-full h-full bg-gray-50" onDrop={handleDropOnCanvas} onDragOver={e => e.preventDefault()}>
-            <Canvas orthographic camera={{
-            zoom: 50,
-            position: [20, 20, 20]
-          }} gl={{
-            antialias: true
-          }}>
-              <Scene />
+            <Canvas camera={{ position: [5, 5, 5], fov: 50 }} style={{ width: '100%', height: '100%' }}>
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[10, 10, 5]} intensity={1} />
+              <Room />
+              <OrbitControls />
             </Canvas>
 
-            {/* Overlay UI Elements */}
-            <div className="absolute inset-0 pointer-events-none">
-              {/* Dimension Indicators */}
-              <div className="absolute top-[30%] left-[25%] p-1.5 bg-white rounded-full border border-orange-400 text-orange-500 shadow-sm">
-                <BoxIcon className="w-4 h-4" />
-              </div>
-              <div className="absolute top-[25%] right-[28%] p-1.5 bg-white rounded-full border border-orange-400 text-orange-500 shadow-sm">
-                <BoxIcon className="w-4 h-4" />
-              </div>
-              <div className="absolute bottom-[35%] left-[35%] p-1.5 bg-white rounded-full border border-orange-400 text-orange-500 shadow-sm">
-                <BoxIcon className="w-4 h-4" />
-              </div>
-            </div>
           </div>
 
           {/* Bottom Right Button */}
