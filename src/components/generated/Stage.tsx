@@ -4,6 +4,7 @@ import { OrbitControls, useGLTF, Environment, ContactShadows, PerspectiveCamera 
 import { ChevronDown, ChevronRight, Plus, Search, Bell, Mail, User, MoreHorizontal, Box as BoxIcon, X, Upload, Settings, Camera, Lock, CreditCard, Moon, Sun, Globe, Save, LogOut, Trash2, Printer, Download, Twitter, Facebook, Instagram, Linkedin, GripVertical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
+import roomGlb from '../../assets/glb/room.glb?url';
 
 // -- Types & Constants --
 
@@ -119,7 +120,7 @@ const INITIAL_INVOICE_ITEMS: InvoiceItem[] = [{
 // -- 3D Components (Simplified to prevent flickering) --
 
 const Room = () => {
-  const { scene } = useGLTF('./src/assets/images/room.glb');
+  const { scene } = useGLTF(roomGlb);
   
   // Enable shadows on all meshes
   scene.traverse((child: THREE.Object3D) => {
