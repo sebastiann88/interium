@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF, Environment, ContactShadows, PerspectiveCamera } from '@react-three/drei';
 import { ChevronDown, ChevronRight, Plus, Search, Bell, Mail, User, MoreHorizontal, Box as BoxIcon, X, Upload, Settings, Camera, Lock, CreditCard, Moon, Sun, Globe, Save, LogOut, Trash2, Printer, Download, Twitter, Facebook, Instagram, Linkedin, GripVertical } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import * as THREE from 'three';
 
 // -- Types & Constants --
 
@@ -119,7 +120,16 @@ const INITIAL_INVOICE_ITEMS: InvoiceItem[] = [{
 
 const Room = () => {
   const { scene } = useGLTF('/src/assets/glb/room.glb');
-  return <primitive object={scene} />;
+  
+  // Enable shadows on all meshes
+  scene.traverse((child: THREE.Object3D) => {
+    if ((child as THREE.Mesh).isMesh) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+    }
+  });
+  
+  return <primitive object={scene} scale={1} position={[0, 0, 0]} />;
 };
 
 const Scene = () => {
@@ -671,12 +681,53 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNav
           </div>
 
           {/* 3D Viewport */}
-          <div className="w-full h-full bg-gray-50" onDrop={handleDropOnCanvas} onDragOver={e => e.preventDefault()}>
-            <Canvas camera={{ position: [5, 5, 5], fov: 50 }} style={{ width: '100%', height: '100%' }}>
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 5]} intensity={1} />
+          <div className="w-full h-full bg-gray-50 cursor-grab active:cursor-grabbing" onDrop={handleDropOnCanvas} onDragOver={e => e.preventDefault()}>
+            <Canvas 
+              shadows 
+              camera={{ position: [0.8, 1.5, -3.8], fov: 50 }}
+              gl={{ 
+                antialias: true,
+                toneMapping: 2, // ACESFilmicToneMapping
+                toneMappingExposure: 1.0,
+                preserveDrawingBuffer: true
+              }}
+              style={{ width: '100%', height: '100%', cursor: 'inherit' }}
+            >
+              {/* Lighting Setup */}
+              <ambientLight intensity={0.4} />
+              <directionalLight 
+                position={[5, 10, 5]} 
+                intensity={1.5} 
+                castShadow
+                shadow-mapSize-width={2048}
+                shadow-mapSize-height={2048}
+              />
+              <hemisphereLight intensity={0.3} groundColor="#444444" />
+              
+              {/* Environment for realistic reflections */}
+              <Environment preset="studio" />
+              
+              {/* 3D Model */}
               <Room />
-              <OrbitControls />
+              
+              {/* Ground Shadows */}
+              <ContactShadows 
+                position={[0, 0, 0]} 
+                opacity={0.5} 
+                scale={10} 
+                blur={2} 
+                far={4} 
+              />
+              
+              {/* Camera Controls */}
+              <OrbitControls 
+                enablePan={true}
+                enableZoom={true}
+                enableRotate={true}
+                minDistance={1}
+                maxDistance={15}
+                target={[0, 0, 0]}
+              />
             </Canvas>
 
           </div>
