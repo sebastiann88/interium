@@ -244,7 +244,7 @@ const SidebarItem = ({
         </div>}
     </div>;
 };
-const Footer = () => {
+const Footer = ({ onNavigateAbout }: { onNavigateAbout?: () => void }) => {
   return <footer className="bg-white border-t border-gray-200 pt-8 pb-6 px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -285,7 +285,7 @@ const Footer = () => {
           <div className="flex flex-col gap-3">
             <h3 className="text-base font-bold text-gray-900">Company</h3>
             <div className="text-sm text-gray-600 space-y-2">
-              <a href="#" className="block hover:text-[#1DA1F2] transition-colors">About</a>
+              <button onClick={onNavigateAbout} className="block hover:text-[#1DA1F2] transition-colors text-left">About</button>
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Blog</a>
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Careers</a>
               <a href="#" className="block hover:text-[#1DA1F2] transition-colors">Contact</a>
@@ -318,7 +318,7 @@ const Footer = () => {
 };
 
 // @component: Stage
-export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
+export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNavigateAbout, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onNavigateAbout?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
   const [treeData, setTreeData] = useState<TreeItem[]>(INITIAL_TREE_DATA);
   const [selectedRoom, setSelectedRoom] = useState<string>('Living Room');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -778,7 +778,7 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpe
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer onNavigateAbout={onNavigateAbout} />
 
       {/* Import 3D Model Overlay */}
       {isImportOverlayOpen && <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
       <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between max-w-6xl">
-        <button onClick={onNavigateHome} className="text-2xl font-black tracking-tight text-gray-900 hover:opacity-80 transition-opacity" style={{
+        <button onClick={onNavigateHome} className="text-2xl font-black tracking-tight hover:opacity-80 transition-opacity cursor-pointer" style={{
         color: "#1da1f2"
       }}>Interium</button>
         

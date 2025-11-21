@@ -5,6 +5,7 @@ import { Stage } from './components/generated/Stage';
 import { BlogGrid } from './components/generated/Blog';
 import { BlogPost } from './components/generated/BlogPost';
 import { ContactPage } from './components/generated/Contact';
+import { AboutPage } from './components/generated/About';
 import { LoginOverlay } from './components/generated/LoginOverlay';
 import { RegisterOverlay } from './components/generated/RegisterOverlay';
 
@@ -13,7 +14,7 @@ const theme: Theme = 'light';
 const container: Container = 'none';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'stage' | 'blog' | 'blogPost' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'stage' | 'blog' | 'blogPost' | 'contact' | 'about'>('home');
   const [selectedBlogPostId, setSelectedBlogPostId] = useState<string | null>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -53,6 +54,10 @@ function App() {
     setCurrentView('contact');
   };
 
+  const handleNavigateAbout = () => {
+    setCurrentView('about');
+  };
+
   const handleViewPost = (postId: string) => {
     setSelectedBlogPostId(postId);
     setCurrentView('blogPost');
@@ -65,7 +70,7 @@ function App() {
   const generatedComponent = useMemo(() => {
     // THIS IS WHERE THE TOP LEVEL GENRATED COMPONENT WILL BE RETURNED!
     if (currentView === 'stage') {
-      return <Stage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
+      return <Stage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onNavigateAbout={handleNavigateAbout} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
     }
     if (currentView === 'blog') {
       return <BlogGrid onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} onViewPost={handleViewPost} />;
@@ -75,6 +80,9 @@ function App() {
     }
     if (currentView === 'contact') {
       return <ContactPage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
+    }
+    if (currentView === 'about') {
+      return <AboutPage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
     }
     return <Home onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
   }, [currentView]);
