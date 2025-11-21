@@ -14,13 +14,15 @@ export interface HeaderProps {
   onNavigateHome?: () => void;
   onNavigateBlog?: () => void;
   onNavigateContact?: () => void;
+  activePage?: 'home' | 'blog' | 'contact';
 }
 export const Header: React.FC<HeaderProps> = ({
   onOpenLogin,
   onOpenRegister,
   onNavigateHome,
   onNavigateBlog,
-  onNavigateContact
+  onNavigateContact,
+  activePage
 }) => {
   return <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
       <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between max-w-6xl">
@@ -29,8 +31,8 @@ export const Header: React.FC<HeaderProps> = ({
       }}>Interium</button>
         
         <nav className="hidden md:flex items-center gap-6">
-          <button onClick={onNavigateBlog} className="text-[15px] font-bold text-gray-900 hover:text-[#1DA1F2] transition-colors">Blog</button>
-          <button onClick={onNavigateContact} className="text-[15px] font-bold text-gray-900 hover:text-[#1DA1F2] transition-colors">Contact</button>
+          <button onClick={onNavigateBlog} className={`text-[15px] font-bold hover:text-[#1DA1F2] transition-colors ${activePage === 'blog' ? 'text-[#1DA1F2]' : 'text-gray-900'}`}>Blog</button>
+          <button onClick={onNavigateContact} className={`text-[15px] font-bold hover:text-[#1DA1F2] transition-colors ${activePage === 'contact' ? 'text-[#1DA1F2]' : 'text-gray-900'}`}>Contact</button>
         </nav>
 
         <div className="flex items-center gap-3">

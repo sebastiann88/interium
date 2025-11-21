@@ -137,7 +137,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({
     console.log(`Sharing to ${platform}`);
   };
   return <div className="min-h-screen flex flex-col bg-white">
-      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} />
+      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} activePage="blog" />
       
       <main className="flex-1 w-full">
         {/* Hero Image Section */}

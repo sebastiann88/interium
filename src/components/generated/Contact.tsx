@@ -33,7 +33,7 @@ export const ContactPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact,
     });
   };
   return <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} />
+      <Header onNavigateHome={onNavigateHome} onNavigateBlog={onNavigateBlog} onNavigateContact={onNavigateContact} onOpenLogin={onOpenLogin} onOpenRegister={onOpenRegister} activePage="contact" />
       
       <main className="flex-1 py-16 w-full">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
