@@ -557,9 +557,6 @@ export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onNav
           <h1 className="text-xl font-bold text-gray-900">Design Your Space</h1>
         </div>
         <div className="flex items-center gap-3">
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-            <Search className="w-5 h-5 text-gray-600" />
-          </button>
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" onClick={() => setIsSearchOpen(!isSearchOpen)}>
             <Search className="w-5 h-5 text-gray-600" />
           </button>
