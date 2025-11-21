@@ -160,8 +160,8 @@ const PricingCard = ({
     </button>
   </div>;
 
-// @component: InteriumLanding
-export const InteriumLanding = () => {
+// @component: Home
+export const Home = ({ onSignIn }: { onSignIn?: () => void }) => {
   const [activeTab, setActiveTab] = useState('Canvas');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -393,13 +393,18 @@ export const InteriumLanding = () => {
       <LoginOverlay isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onGoogleSignIn={() => {
       console.log('Google sign in clicked');
       // Add your Google sign in logic here
+      setIsLoginOpen(false);
+      onSignIn?.();
     }} onFacebookSignIn={() => {
       console.log('Facebook sign in clicked');
       // Add your Facebook sign in logic here
+      setIsLoginOpen(false);
+      onSignIn?.();
     }} onEmailSignIn={(email, password) => {
       console.log('Email sign in:', email, password);
       // Add your email sign in logic here
       setIsLoginOpen(false);
+      onSignIn?.();
     }} />
 
       {/* Register Overlay */}
