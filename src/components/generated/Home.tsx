@@ -161,7 +161,7 @@ const PricingCard = ({
   </div>;
 
 // @component: Home
-export const Home = ({ onSignIn }: { onSignIn?: () => void }) => {
+export const Home = ({ onSignIn, onNavigateBlog, onNavigateContact }: { onSignIn?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
   const [activeTab, setActiveTab] = useState('Canvas');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -197,8 +197,8 @@ export const Home = ({ onSignIn }: { onSignIn?: () => void }) => {
         }}>Interium</div>
           
           <nav className="hidden md:flex items-center gap-6">
-            <NavLink href="#blog">Blog</NavLink>
-            <NavLink href="#contact">Contact</NavLink>
+            <button onClick={onNavigateBlog} className="text-[15px] font-bold text-gray-900 hover:text-[#1DA1F2] transition-colors">Blog</button>
+            <button onClick={onNavigateContact} className="text-[15px] font-bold text-gray-900 hover:text-[#1DA1F2] transition-colors">Contact</button>
           </nav>
 
           <div className="flex items-center gap-3">

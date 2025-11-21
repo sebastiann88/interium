@@ -318,7 +318,7 @@ const Footer = () => {
 };
 
 // @component: Stage
-export const Stage = ({ onNavigateHome }: { onNavigateHome?: () => void }) => {
+export const Stage = ({ onNavigateHome, onNavigateBlog, onNavigateContact }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void }) => {
   const [treeData, setTreeData] = useState<TreeItem[]>(INITIAL_TREE_DATA);
   const [selectedRoom, setSelectedRoom] = useState<string>('Living Room');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -610,8 +610,8 @@ export const Stage = ({ onNavigateHome }: { onNavigateHome?: () => void }) => {
           <nav className="hidden md:flex items-center gap-6 text-[15px] font-medium">
             <button onClick={onNavigateHome} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Home</button>
             <a href="#" className="text-gray-900 hover:text-[#1DA1F2] transition-colors py-2">Stage</a>
-            <a href="#" className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Blog</a>
-            <a href="#" className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Contact</a>
+            <button onClick={onNavigateBlog} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Blog</button>
+            <button onClick={onNavigateContact} className="text-gray-600 hover:text-[#1DA1F2] transition-colors py-2">Contact</button>
           </nav>
         </div>
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block">
