@@ -99,7 +99,7 @@ const allBlogPosts: BlogPost[] = [{
 const POSTS_PER_PAGE = 6;
 
 // @component: BlogGrid
-export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void }) => {
+export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, onOpenLogin, onOpenRegister, onViewPost }: { onNavigateHome?: () => void; onNavigateBlog?: () => void; onNavigateContact?: () => void; onOpenLogin?: () => void; onOpenRegister?: () => void; onViewPost?: (postId: string) => void }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(allBlogPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
@@ -132,7 +132,7 @@ export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, on
       <main className="flex-1 bg-white py-12 sm:py-16 w-full">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {currentPosts.map(post => <article key={post.id} className="flex flex-col items-start justify-between group">
+            {currentPosts.map(post => <article key={post.id} className="flex flex-col items-start justify-between group cursor-pointer" onClick={() => onViewPost?.(post.id)}>
                 <div className="relative w-full">
                   <img src={post.imageUrl} alt={post.title} className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] group-hover:opacity-90 transition-opacity duration-300 shadow-sm ring-1 ring-gray-900/5" onError={e => {
                 const target = e.target as HTMLImageElement;
@@ -145,16 +145,13 @@ export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, on
                     <time dateTime={post.date} className="text-gray-500 font-medium">
                       {post.date}
                     </time>
-                    <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 transition-colors">
                       {post.category}
                     </span>
                   </div>
                   <div className="group relative">
                     <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 transition-colors">
-                      <a href="#">
-                        <span className="absolute inset-0" />
-                        {post.title}
-                      </a>
+                      {post.title}
                     </h3>
                     <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
                       {post.excerpt}
@@ -167,10 +164,7 @@ export const BlogGrid = ({ onNavigateHome, onNavigateBlog, onNavigateContact, on
                 }} />
                     <div className="text-sm leading-6">
                       <p className="font-semibold text-gray-900">
-                        <a href="#">
-                          <span className="absolute inset-0" />
-                          {post.author.name}
-                        </a>
+                        {post.author.name}
                       </p>
                       <p className="text-gray-600">{post.author.role}</p>
                     </div>

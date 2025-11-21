@@ -3,6 +3,7 @@ import { Container, Theme } from './settings/types';
 import { Home } from './components/generated/Home';
 import { Stage } from './components/generated/Stage';
 import { BlogGrid } from './components/generated/Blog';
+import { BlogPost } from './components/generated/BlogPost';
 import { ContactPage } from './components/generated/Contact';
 import { LoginOverlay } from './components/generated/LoginOverlay';
 import { RegisterOverlay } from './components/generated/RegisterOverlay';
@@ -12,7 +13,8 @@ const theme: Theme = 'light';
 const container: Container = 'none';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'stage' | 'blog' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'stage' | 'blog' | 'blogPost' | 'contact'>('home');
+  const [selectedBlogPostId, setSelectedBlogPostId] = useState<string | null>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
@@ -51,13 +53,25 @@ function App() {
     setCurrentView('contact');
   };
 
+  const handleViewPost = (postId: string) => {
+    setSelectedBlogPostId(postId);
+    setCurrentView('blogPost');
+  };
+
+  const handleBackToGrid = () => {
+    setCurrentView('blog');
+  };
+
   const generatedComponent = useMemo(() => {
     // THIS IS WHERE THE TOP LEVEL GENRATED COMPONENT WILL BE RETURNED!
     if (currentView === 'stage') {
       return <Stage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
     }
     if (currentView === 'blog') {
-      return <BlogGrid onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
+      return <BlogGrid onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} onViewPost={handleViewPost} />;
+    }
+    if (currentView === 'blogPost') {
+      return <BlogPost onBackToGrid={handleBackToGrid} onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
     }
     if (currentView === 'contact') {
       return <ContactPage onNavigateHome={handleNavigateHome} onNavigateBlog={handleNavigateBlog} onNavigateContact={handleNavigateContact} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />;
