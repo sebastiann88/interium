@@ -151,33 +151,33 @@ export const AboutPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, o
             {[{
             number: "4.8",
             label: "App Store Rating"
-          }, {
-            number: "2M+",
-            label: "Rooms Scanned"
-          }, {
-            number: "150k",
-            label: "Active Designers"
-          }, {
-            number: "24/7",
-            label: "Support Available"
-          }].map((stat, i) => <motion.div key={i} initial={{
-            opacity: 0,
-            scale: 0.9
-          }} whileInView={{
-            opacity: 1,
-            scale: 1
-          }} viewport={{
-            once: true
-          }} transition={{
-            delay: i * 0.1
-          }}>
-                <div className="text-4xl md:text-5xl font-bold mb-2 tracking-tight">
-                  {stat.number}
-                </div>
-                <div className="text-primary-foreground/80 font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>)}
+              }, {
+                number: "2M+",
+                label: "Rooms Scanned"
+              }, {
+                number: "150k",
+                label: "Active Designers"
+              }, {
+                number: "24/7",
+                label: "Support Available"
+              }].map((stat, i) => <motion.div key={i} initial={{
+                opacity: 0,
+                scale: 0.9
+              }} whileInView={{
+                opacity: 1,
+                scale: 1
+              }} viewport={{
+                once: true
+              }} transition={{
+                delay: i * 0.1
+              }}>
+              <div className="text-4xl md:text-5xl font-bold mb-2 tracking-tight">
+                {stat.number}
+              </div>
+              <div className="text-primary-foreground/80 font-medium">
+                {stat.label}
+              </div>
+            </motion.div>)}
           </div>
         </div>
       </section>
@@ -213,6 +213,6 @@ export const AboutPage = ({ onNavigateHome, onNavigateBlog, onNavigateContact, o
       </section>
     </main>
       
-      <Footer />
+    <Footer />
     </div>;
 };

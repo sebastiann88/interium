@@ -381,7 +381,6 @@ export const Home = ({ onNavigateBlog, onNavigateContact, onOpenLogin, onOpenReg
               </button>
             </form>
           </div>
-
         </div>
       </footer>
     </div>;
